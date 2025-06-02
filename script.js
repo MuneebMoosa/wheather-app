@@ -70,6 +70,8 @@ const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${place}&limit=1
         .then(response => response.json())
         .then(geoData => {
           if (geoData.length === 0) {
+            const newPlace = localStorage.getItem('prevplace') ;
+            displayCity.textContent = newPlace;
             alert('City not found!');
             return;
           }
@@ -100,6 +102,7 @@ const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${place}&limit=1
               const formattedDate = `${day} ${monthName},${year}`;
 
               //html change
+              localStorage.setItem('prevplace', place);
 
               document.querySelector(".data-loc").textContent = place; // You can update this dynamically if needed
               document.querySelector(".data-date").textContent = formattedDate;
