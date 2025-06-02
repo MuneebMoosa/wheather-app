@@ -62,15 +62,11 @@ addLoc.addEventListener('click', () => {
 // wheather logic start
 
 const apiKey = 'ecd14a630923ebd2ba6dda5cf3a7d9bf';
-function getWeather(){
+async function getWeather(){
 const place = document.getElementById('displayCity').textContent.trim();
-  if (!place) {
-      console.error('No city entered.');
-      return;
-    }
 const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${place}&limit=1&appid=${apiKey}` ;
 
-  fetch(geoUrl)
+ await  fetch(geoUrl)
         .then(response => response.json())
         .then(geoData => {
           if (geoData.length === 0) {
@@ -82,14 +78,14 @@ const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${place}&limit=1
 
        const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${place}&appid=${apiKey}&units=metric`;
 
-   fetch(weatherUrl)
+      fetch(weatherUrl)
           .then(response => response.json())
           .then(data => {
             //current weather
-              // const current = data.current; // any prob check
-              const currentIcon = data.weather[0].icon;
-              const currentTemp = data.main.temp;
-              const weatherType = data.weather[0].main;
+              const current = data; 
+              const currentIcon = current.weather[0].icon;
+              const currentTemp = current.main.temp;
+              const weatherType = current.weather[0].main;
             // for getting date
               const currentDate = new Date();
               const day = currentDate.getDate();

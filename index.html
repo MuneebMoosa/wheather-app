@@ -10,6 +10,7 @@
   <img class="bg-image"src="image/wclearsky.jpg" alt="image">
   <nav>
     <h1 class="logo">Find Wheather &deg;</h1>
+<div class="weather-input">
    <svg class="loc-svg" version="1.0" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
       width="800px" height="800px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
       <g>
@@ -25,21 +26,26 @@
       </g>
     </svg>
     <input type="text" id="locationInput" placeholder="Enter a city..." />
-    <h2 class="loc-head location" id="displayCity">London</h2>
+    <h2 class="loc-head location" id="displayCity"></h2>
+</div>
   </nav> 
   <header class="main-header">
     <div class="main-part">
-      <div class="current-data">
-          <div class="data-part">
-            <!-- generate by javascript -->
-              <h1 class="data-loc location"></h1>
-              <h2 class="data-date"></h2>
-              <img class="data-image" alt="image">
-              <h2 class="data-type"></h2>
-          </div>
-          <div class="temp-part">
-              <h1 class="temp-head"></h1>
-          </div>
+        <div class="current-data">
+              <div class="data-part">
+                <div class="location-container">
+                    <!-- generate by javascript -->
+                  <h1 class="data-loc location"></h1>
+                  <h2 class="data-date"></h2>
+                  </div>
+                    <div class="current-container">
+                        <img class="data-image" alt="image">
+                        <h2 class="data-type"></h2>
+                    </div>
+              </div>
+              <div class="temp-part">
+                  <h1 class="temp-head"></h1>
+              </div>
         </div>
     </div>
     <div class="custom-part">

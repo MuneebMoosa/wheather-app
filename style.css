@@ -34,27 +34,33 @@ nav{
   color: var(--primary-color);
   border: 1px solid black;
 }
+nav .weather-input{
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 60px;
+  right: 80px;
+}
 nav .loc-svg{
   position: absolute;
   height: 60px;
   width: 40px;
-  top: 15px;
-  right: 80px;
 }
 nav .loc-head{
   color: var(--primary-color);
   position: absolute;
-  top: 70px;
-  right: 65px;
   font-family: var(--primary-font);
+  text-align: center;
+  top: 20px;
 }
 nav #locationInput{
     visibility: hidden;
     position: absolute;
-    top: 70px;
-    right: 35px;
     width: 150px;
     height: 30px;
+    top: 23px;
+    z-index: 4;
 }
 .main-header{
   height: 100%;
@@ -67,15 +73,20 @@ nav #locationInput{
 .current-data{
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-start;
   width: 100%;
   color: var(--primary-color);
   font-family: var(--primary-font);
+}
+.location-container{
+  position: absolute;
+  top: 5px;
 }
 .data-part{
   display: flex;
   justify-content: center;
   flex-direction: column;
+  position: relative;
 }
 .data-loc{
   font-size: 50px;
@@ -83,19 +94,27 @@ nav #locationInput{
   margin-left: 50px;
 }
 .data-date{
-  padding: 0 0 20px 0;
+  padding: 0 0 10px 0;
   margin-left: 50px;
 }
-.data-type{
-  margin-left: 75px;
-  transform: translateY(-30px);
+.current-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: absolute; 
+  left: 50px;
+  top: 90px; 
 }
 .data-image{
   height: 150px;
   width: 150px;
-  margin-left:35px;
+}
+.data-type{
+  transform: translateY(-30px);
 }
 .temp-part{
+  margin-left: auto;
   padding: 20px;
 }
 .temp-head{
