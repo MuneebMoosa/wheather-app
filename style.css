@@ -193,10 +193,15 @@ nav #locationInput{
 }
 .value{
  height: 100%;
- padding: 0 20px;
+  width: 130px;
+ padding: 0 30px;
  margin: 0 20px;
  display: flex;
  flex-direction: column;
  justify-content: center;
  align-items: center;
+}
+.value .time1{
+  width: 120px;
+  transform: translateX(20px);
 }

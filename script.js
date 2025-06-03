@@ -1,5 +1,5 @@
 // button hover
-//  let k = 1;
+let weatherMode = 'hourly';
   function toggleSelection(clickedButton) {
         const buttons = document.querySelectorAll('.select');
         const highlightLine = document.querySelector('.highlight-line');
@@ -14,10 +14,10 @@
      
           if(buttons[0] === clickedButton) {
             otherButton = buttons[1];
-            // k = 1;
+            weatherMode = 'hourly';
           }else{
             otherButton = buttons[0];
-            // k = 0;
+            weatherMode = 'daily';
           }
         otherButton.classList.add('selected');
 
@@ -35,9 +35,7 @@
         // Apply position and width to the highlight line
         highlightLine.style.left = left + 'px';
         highlightLine.style.width = width + 'px';
-        // getWeather(k);
-        // console.log(k);
-        // return k;
+         getWeather();
     }
     
 //button hover
@@ -126,28 +124,65 @@ const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${place}&limit=1
               
               // hourly weather start
               // const value = hordValue;
-              // if(value == 1){
-              const valuePartDiv = document.querySelector('.value-part');
+             
+    if(weatherMode == 'hourly'){
+       const valuePartDiv = document.querySelector('.value-part');
               valuePartDiv.innerHTML = '';
-              for(let i = 0; i< 6 ; i++){
-                  const forecast = forecasts[i];
-                  const time = new Date(forecast.dt * 1000);
-                  const hour = time.getHours();
-                  const ampm = hour >= 12 ? 'PM' : 'AM';
-                  const displayHour = hour % 12 || 12;
+      for(let i = 0; i < 5 ; i++){
+          const forecast = forecasts[i];
+          const time = new Date(forecast.dt * 1000);
+          const hour = time.getHours();
+          const ampm = hour >= 12 ? 'PM' : 'AM';
+          const displayHour = hour % 12 || 12;
 
-                  const icon = forecast.weather[0].icon;
-                  const temp = forecast.main.temp;
+          const icon = forecast.weather[0].icon;
+          const temp = forecast.main.temp;
 
-                  const html = `  <div class="value">
-                                      <h2 class="time1 date1">${displayHour} ${ampm}</h2>
-                                      <img class="value-img img1" src="https://openweathermap.org/img/wn/${icon}@2x.png" alt="'image'">
-                                      <h2 class="value-temp1">${Math.round(temp)}&deg;C</h2>
-                                    </div>`;
+          const html = `  <div class="value">
+                              <h2 class="time1 date1">${displayHour} ${ampm}</h2>
+                              <img class="value-img img1" src="https://openweathermap.org/img/wn/${icon}@2x.png" alt="'image'">
+                              <h2 class="value-temp1">${Math.round(temp)}&deg;C</h2>
+                            </div>`;
 
-                  valuePartDiv.innerHTML += html; 
-                 }
-          //  }//add next condition
+          valuePartDiv.innerHTML += html; 
+          }
+      } else {
+            const dailyForecasts = [];
+            let lastDate = '';
+            for (let i = 0; i < forecasts.length; i++) {
+              const forecast = forecasts[i];
+              const forecastDate = new Date(forecast.dt * 1000).toLocaleDateString();
+
+              if (forecastDate !== lastDate) {
+                dailyForecasts.push(forecast);
+                lastDate = forecastDate;
+              }
+              if (dailyForecasts.length === 5) {
+                break; // stop after 5 days
+              }
+            }
+            const valuePart = document.querySelector('.value-part');
+            valuePart.innerHTML = '';
+
+            for (let i = 0; i < dailyForecasts.length; i++) {
+              const forecast = dailyForecasts[i];
+              const dateLabel = new Date(forecast.dt * 1000).toLocaleDateString('en-US', {
+                weekday: 'short', day: 'numeric', month: 'short'
+              });
+              const iconCode = forecast.weather[0].icon;
+              const temp = Math.round(forecast.main.temp);
+
+              const dayHTML = `
+                <div class="value">
+                  <h2 class="time1 date1">${dateLabel}</h2>
+                  <img class="value-img img1" src="https://openweathermap.org/img/wn/${iconCode}@2x.png" alt="Weather icon">
+                  <h2 class="value-temp1">${temp}&deg;C</h2>
+                </div>`;
+
+              valuePart.innerHTML += dayHTML;
+            }
+          }
+
 
           })//fetch weather url close 
            .catch(error => console.error('Error fetching weather data:', error));
