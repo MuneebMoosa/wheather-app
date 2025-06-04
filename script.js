@@ -1,5 +1,13 @@
+import { successCallback , errorCallback } from "./location.js";
 // button hover
+
 let weatherMode = 'hourly';
+document.addEventListener('DOMContentLoaded', () => {
+  const buttons = document.querySelectorAll('.select');
+  buttons.forEach(button => {
+    button.addEventListener('click', () => toggleSelection(button));
+  });
+});
   function toggleSelection(clickedButton) {
         const buttons = document.querySelectorAll('.select');
         const highlightLine = document.querySelector('.highlight-line');
@@ -25,7 +33,7 @@ let weatherMode = 'hourly';
         const lineDiv = document.querySelector('.line-div');
         const lineDivRect = lineDiv.getBoundingClientRect();
         const clickedRect = clickedButton.getBoundingClientRect();
-
+        
         // Calculate left position relative to lineDiv
         const left = clickedRect.left - lineDivRect.left;
 
@@ -35,6 +43,7 @@ let weatherMode = 'hourly';
         // Apply position and width to the highlight line
         highlightLine.style.left = left + 'px';
         highlightLine.style.width = width + 'px';
+        // UPTO THIS AI NOT ME :)
          getWeather();
     }
     
@@ -67,13 +76,25 @@ addLoc.addEventListener('click', () => {
 
 // wheather logic start
 
+// current loaction set
+    window.onload = function () {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+      } else {
+        alert("Geolocation is not supported by this browser.");
+      }
+    };
+//current location ends
 
-// hordValue
-async function getWeather(){
-const apiKey = 'ecd14a630923ebd2ba6dda5cf3a7d9bf';
-const place = document.getElementById('displayCity').textContent.trim();
-const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${place}&limit=1&appid=${apiKey}` ;
-
+export async function getWeather(lat , lon){
+ const apiKey = 'ecd14a630923ebd2ba6dda5cf3a7d9bf';
+ let geoUrl;
+    if (lat && lon) {
+        geoUrl = `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${apiKey}`;
+    } else {
+        const place = document.getElementById('displayCity').textContent.trim();
+        geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${place}&limit=1&appid=${apiKey}` ;
+       }
  await  fetch(geoUrl)
         .then(response => response.json())
         .then(geoData => {
@@ -83,10 +104,14 @@ const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${place}&limit=1
             alert('City not found!');
             return;
           }
-        const lat = geoData[0].lat;
-        const lon = geoData[0].lon;
+         lat = geoData[0].lat;
+         lon = geoData[0].lon;
+
+        const placeName = geoData[0].name;
+        displayCity.textContent = placeName;
 
       const weatherUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+        const place = placeName;
 
       fetch(weatherUrl)
           .then(response => response.json())
@@ -123,7 +148,6 @@ const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${place}&limit=1
               document.querySelector(".temp-head").innerHTML = `${Math.round(currentTemp)}&deg;`;
               
               // hourly weather start
-              // const value = hordValue;
              
     if(weatherMode == 'hourly'){
        const valuePartDiv = document.querySelector('.value-part');

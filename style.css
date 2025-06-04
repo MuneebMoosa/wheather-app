@@ -104,11 +104,11 @@ nav #locationInput{
   flex-direction: column;
   position: absolute; 
   left: 50px;
-  top: 90px; 
+  top: 150px; 
 }
 .data-image{
-  height: 150px;
-  width: 150px;
+  height: 190px;
+  width: 190px;
 }
 .data-type{
   transform: translateY(-30px);
@@ -193,7 +193,7 @@ nav #locationInput{
 }
 .value{
  height: 100%;
-  width: 130px;
+ width: 130px;
  padding: 0 30px;
  margin: 0 20px;
  display: flex;
