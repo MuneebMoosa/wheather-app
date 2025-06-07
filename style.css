@@ -96,7 +96,6 @@ nav #locationInput{
   margin-left: 50px;
 }
 .data-date{
-  /* font-size: 20px; */
   min-width: 300px;
   padding: 10px 0 10px 0;
   margin-left: 50px;
@@ -209,4 +208,39 @@ nav #locationInput{
   font-size: 20px;
   width: 120px;
   transform: translateX(20px);
+}
+@media screen and (max-width: 890px ){
+.bg-image{
+ min-height: 1180px;
+}
+.temp-part{
+  margin-left: auto;
+  padding: 30px;
+}
+.temp-head{
+ margin-right: 10px;
+ margin-top: 60px;
+}
+.location-container{
+ top: 60px;
+}
+.current-container{
+  top: 210px; 
+}
+.custom-part{
+  transform: translateY(130px);
+}
+.value-part{
+ margin-top: 200px;
+}
+.value{
+ height: 100%;
+ width: 120px;
+ 
+}
+.value-img{
+  height: 100px;
+  width: 100px;
+}
+
 }
