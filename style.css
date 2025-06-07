@@ -96,6 +96,8 @@ nav #locationInput{
   margin-left: 50px;
 }
 .data-date{
+  /* font-size: 20px; */
+  min-width: 300px;
   padding: 10px 0 10px 0;
   margin-left: 50px;
 }
@@ -204,6 +206,7 @@ nav #locationInput{
  align-items: center;
 }
 .value .time1{
+  font-size: 20px;
   width: 120px;
   transform: translateX(20px);
 }
